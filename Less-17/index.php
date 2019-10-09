@@ -36,7 +36,7 @@
 include("../sql-connections/sql-connect.php");
 error_reporting(0);
 
-function check_input($value)
+function check_input($con, $value)
 	{
 	if(!empty($value))
 		{
@@ -68,7 +68,7 @@ if(isset($_POST['uname']) && isset($_POST['passwd']))
 
 {
 //making sure uname is not injectable
-$uname=check_input($_POST['uname']);  
+$uname=check_input($con, $_POST['uname']);  
 
 $passwd=$_POST['passwd'];
 
@@ -92,7 +92,7 @@ $row = mysqli_fetch_array($result, MYSQLI_BOTH);
 		$row1 = $row['username'];  	
 		//echo 'Your Login name:'. $row1;
 		$update="UPDATE users SET password = '$passwd' WHERE username='$row1'";
-		mysql_query($update);
+		mysql_query($con,$update);
   		echo "<br>";
 	
 	
