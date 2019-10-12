@@ -12,14 +12,14 @@
 <div  align="center" style="margin:20px 0px 0px 520px;border:20px; background-color:#0CF; text-align:center; width:400px; height:150px;">
 
 <div style="padding-top:10px; font-size:15px;">
- 
+
 
 <!--Form to post the contents -->
 <form action="" name="form1" method="post">
 
   <div style="margin-top:15px; height:30px;">User Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;&nbsp;
     <input type="text"  name="uname" value=""/>  </div>
-  
+
   <div> New Password : &nbsp; &nbsp;
     <input type="text" name="passwd" value=""/></div></br>
     <div style=" margin-top:9px;margin-left:90px;"><input type="submit" name="submit" value="Submit" /></div>
@@ -55,7 +55,7 @@ function check_input($con, $value)
 			{
 			$value = "'" . mysqli_real_escape_string($con, $value) . "'";
 			}
-		
+
 	else
 		{
 		$value = intval($value);
@@ -68,7 +68,7 @@ if(isset($_POST['uname']) && isset($_POST['passwd']))
 
 {
 //making sure uname is not injectable
-$uname=check_input($con, $_POST['uname']);  
+$uname=check_input($con, $_POST['uname']);
 
 $passwd=$_POST['passwd'];
 
@@ -80,23 +80,24 @@ fwrite($fp,'New Password:'.$passwd."\n");
 fclose($fp);
 
 
-// connectivity 
+// connectivity
 @$sql="SELECT username, password FROM users WHERE username= $uname LIMIT 0,1";
-
+//echo $sql;
 $result=mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_BOTH);
 //echo $row;
 	if($row)
 	{
-  		//echo '<font color= "#0000ff">';	
-		$row1 = $row['username'];  	
+  		//echo '<font color= "#0000ff">';
+		$row1 = $row['username'];
 		//echo 'Your Login name:'. $row1;
 		$update="UPDATE users SET password = '$passwd' WHERE username='$row1'";
-		mysql_query($con,$update);
+		//echo $update;
+		mysqli_query($con,$update);
   		echo "<br>";
-	
-	
-	
+
+
+
 		if (mysqli_error($con))
 		{
 			echo '<font color= "#FFFF00" font size = 3 >';
@@ -107,26 +108,26 @@ $row = mysqli_fetch_array($result, MYSQLI_BOTH);
 		else
 		{
 			echo '<font color= "#FFFF00" font size = 3 >';
-			//echo " You password has been successfully updated " ;		
+			//echo " You password has been successfully updated " ;
 			echo "<br>";
 			echo "</font>";
 		}
-	
-		echo '<img src="../images/flag1.jpg"   />';	
+
+		echo '<img src="../images/flag1.jpg"   />';
 		//echo 'Your Password:' .$row['password'];
   		echo "</font>";
-	
+
 
 
   	}
-	else  
+	else
 	{
 		echo '<font size="4.5" color="#FFFF00">';
 		//echo "Bug off you Silly Dumb hacker";
 		echo "</br>";
 		echo '<img src="../images/slap1.jpg"   />';
-	
-		echo "</font>";  
+
+		echo "</font>";
 	}
 }
 
