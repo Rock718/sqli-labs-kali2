@@ -19,16 +19,16 @@ if(!isset($_COOKIE['uname']))
 	echo "<div style=' margin-top:20px;color:#FFF; font-size:24px; text-align:center'> Welcome&nbsp;&nbsp;&nbsp;<font color='#FF0000'> Dhakkan </font><br></div>";
 	echo "<div  align='center' style='margin:20px 0px 0px 510px;border:20px; background-color:#0CF; text-align:center;width:400px; height:150px;'>";
 	echo "<div style='padding-top:10px; font-size:15px;'>";
- 
+
 
 	echo "<!--Form to post the contents -->";
 	echo '<form action=" " name="form1" method="post">';
 
 	echo ' <div style="margin-top:15px; height:30px;">Username : &nbsp;&nbsp;&nbsp;';
 	echo '   <input type="text"  name="uname" value=""/>  </div>';
-  
+
 	echo ' <div> Password : &nbsp; &nbsp; &nbsp;';
-	echo '   <input type="text" name="passwd" value=""/></div></br>';	
+	echo '   <input type="text" name="passwd" value=""/></div></br>';
 	echo '   <div style=" margin-top:9px;margin-left:90px;"><input type="submit" name="submit" value="Submit" /></div>';
 
 	echo '</form>';
@@ -43,8 +43,8 @@ if(!isset($_COOKIE['uname']))
 
 
 
-	
-function check_input($value)
+
+function check_input($con, $value)
 	{
 	if(!empty($value))
 		{
@@ -66,19 +66,19 @@ function check_input($value)
 	}
 
 
-	
+
 	echo "<br>";
 	echo "<br>";
-	
+
 	if(isset($_POST['uname']) && isset($_POST['passwd']))
 		{
-	
-		$uname = check_input($_POST['uname']);
-		$passwd = check_input($_POST['passwd']);
-		
-	
 
-		
+		$uname = check_input($con, $_POST['uname']);
+		$passwd = check_input($con, $_POST['passwd']);
+
+
+
+
 		$sql="SELECT  users.username, users.password FROM users WHERE users.username=$uname and users.password=$passwd ORDER BY users.id DESC LIMIT 0,1";
 		$result1 = mysqli_query($con, $sql);
 		$row1 = mysqli_fetch_array($result1, MYSQLI_BOTH);
@@ -86,15 +86,15 @@ function check_input($value)
 			if($row1)
 				{
 				echo '<font color= "#FFFF00" font size = 3 >';
-				setcookie('uname', $cookee, time()+3600);	
+				setcookie('uname', $cookee, time()+3600);
 				header ('Location: index.php');
 				echo "I LOVE YOU COOKIES";
 				echo "</font>";
-				echo '<font color= "#0000ff" font size = 3 >';			
+				echo '<font color= "#0000ff" font size = 3 >';
 				//echo 'Your Cookie is: ' .$cookee;
 				echo "</font>";
 				echo "<br>";
-				print_r(mysqli_error($con));			
+				print_r(mysqli_error($con));
 				echo "<br><br>";
 				echo '<img src="../images/flag.jpg" />';
 				echo "<br>";
@@ -104,14 +104,14 @@ function check_input($value)
 				echo '<font color= "#0000ff" font size="3">';
 				//echo "Try again looser";
 				print_r(mysqli_error($con));
-				echo "</br>";			
 				echo "</br>";
-				echo '<img src="../images/slap.jpg" />';	
-				echo "</font>";  
+				echo "</br>";
+				echo '<img src="../images/slap.jpg" />';
+				echo "</font>";
 				}
 			}
-		
-			echo "</font>";  
+
+			echo "</font>";
 	echo '</font>';
 	echo '</div>';
 
@@ -123,7 +123,7 @@ else
 
 	if(!isset($_POST['submit']))
 		{
-			
+
 			$cookee = $_COOKIE['uname'];
 			$format = 'D d M Y - H:i:s';
 			$timestamp = time() + 3600;
@@ -131,18 +131,18 @@ else
 			echo '<br><br><br>';
 			echo '<img src="../images/Less-20.jpg" />';
 			echo "<br><br><b>";
-			echo '<br><font color= "red" font size="4">';	
+			echo '<br><font color= "red" font size="4">';
 			echo "YOUR USER AGENT IS : ".$_SERVER['HTTP_USER_AGENT'];
-			echo "</font><br>";	
-			echo '<font color= "cyan" font size="4">';	
-			echo "YOUR IP ADDRESS IS : ".$_SERVER['REMOTE_ADDR'];			
-			echo "</font><br>";			
+			echo "</font><br>";
+			echo '<font color= "cyan" font size="4">';
+			echo "YOUR IP ADDRESS IS : ".$_SERVER['REMOTE_ADDR'];
+			echo "</font><br>";
 			echo '<font color= "#FFFF00" font size = 4 >';
 			echo "DELETE YOUR COOKIE OR WAIT FOR IT TO EXPIRE <br>";
-			echo '<font color= "orange" font size = 5 >';			
+			echo '<font color= "orange" font size = 5 >';
 			echo "YOUR COOKIE : uname = $cookee and expires: " . date($format, $timestamp);
-			
-			
+
+
 			echo "<br></font>";
 			$sql="SELECT * FROM users WHERE username='$cookee' LIMIT 0,1";
 			$result=mysqli_query($con, $sql);
@@ -153,16 +153,16 @@ else
 			$row = mysqli_fetch_array($result, MYSQLI_BOTH);
 			if($row)
 				{
-			  	echo '<font color= "pink" font size="5">';	
+			  	echo '<font color= "pink" font size="5">';
 			  	echo 'Your Login name:'. $row['username'];
 			  	echo "<br>";
-				echo '<font color= "grey" font size="5">';  	
+				echo '<font color= "grey" font size="5">';
 				echo 'Your Password:' .$row['password'];
 			  	echo "</font></b>";
 				echo "<br>";
 				echo 'Your ID:' .$row['id'];
 			  	}
-			else	
+			else
 				{
 				echo "<center>";
 				echo '<br><br><br>';
@@ -175,7 +175,7 @@ else
 			echo '<input  type="submit" name="submit" value="Delete Your Cookie!" />';
 			echo '</form>';
 			echo '</center>';
-		}	
+		}
 	else
 		{
 		echo '<center>';
@@ -190,8 +190,8 @@ else
 				setcookie('uname', $row1['username'], time()-3600);
 				header ('Location: index.php');
 		echo '</font></center></br>';
-		
-		}		
+
+		}
 
 
 			echo "<br>";
@@ -199,14 +199,14 @@ else
 			//header ('Location: main.php');
 			echo "<br>";
 			echo "<br>";
-			
+
 			//echo '<img src="../images/slap.jpg" /></center>';
-			//logging the connection parameters to a file for analysis.	
+			//logging the connection parameters to a file for analysis.
 		$fp=fopen('result.txt','a');
 		fwrite($fp,'Cookie:'.$cookee."\n");
-	
+
 		fclose($fp);
-	
+
 }
 ?>
 
