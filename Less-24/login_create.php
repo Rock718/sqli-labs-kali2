@@ -17,42 +17,42 @@ include("../sql-connections/sql-connect.php");
 
 if (isset($_POST['submit']))
 {
-	
+
 
 # Validating the user input........
 
 	//$username=  $_POST['username'] ;
-	$username=  mysql_escape_string($_POST['username']) ;
-	$pass= mysql_escape_string($_POST['password']);
-	$re_pass= mysql_escape_string($_POST['re_password']);
-	
+	$username=  mysqli_escape_string($con, $_POST['username']) ;
+	$pass= mysqli_escape_string($con, $_POST['password']);
+	$re_pass= mysqli_escape_string($con, $_POST['re_password']);
+
 	echo "<font size='3' color='#FFFF00'>";
 	$sql = "select count(*) from users where username='$username'";
 	$res = mysqli_query($con, $sql) or die('You tried to be smart, Try harder!!!! :( ');
-  	$row = mysql_fetch_row($res);
-	
+  	$row = mysqli_fetch_row($res);
+
 	//print_r($row);
-	if (!$row[0]== 0) 
+	if (!$row[0]== 0)
 		{
 		?>
 		<script>alert("The username Already exists, Please choose a different username ")</script>;
 		<?php
 		header('refresh:1, url=new_user.php');
-   		} 
-		else 
+   		}
+		else
 		{
        		if ($pass==$re_pass)
 			{
 				# Building up the query........
-   				
+
    				$sql = "insert into users ( username, password) values(\"$username\", \"$pass\")";
    				mysqli_query($con, $sql) or die('Error Creating your user account,  : '.mysqli_error($con));
 					echo "</br>";
-					echo "<center><img src=../images/Less-24-user-created.jpg><font size='3' color='#FFFF00'>";   				
+					echo "<center><img src=../images/Less-24-user-created.jpg><font size='3' color='#FFFF00'>";
 					//echo "<h1>User Created Successfully</h1>";
 					echo "</br>";
 					echo "</br>";
-					echo "</br>";					
+					echo "</br>";
 					echo "</br>Redirecting you to login page in 5 sec................";
 					echo "<font size='2'>";
 					echo "</br>If it does not redirect, click the home button on top right</center>";

@@ -15,14 +15,14 @@ include("../sql-connections/sql-connect.php");
 
 
 
-function sqllogin(){
+function sqllogin($con){
 
-   $username = mysql_real_escape_string($_POST["login_user"]);
-   $password = mysql_real_escape_string($_POST["login_password"]);
+   $username = mysqli_real_escape_string($con, $_POST["login_user"]);
+   $password = mysqli_real_escape_string($con, $_POST["login_password"]);
    $sql = "SELECT * FROM users WHERE username='$username' and password='$password'";
 //$sql = "SELECT COUNT(*) FROM users WHERE username='$username' and password='$password'";
    $res = mysqli_query($con, $sql) or die('You tried to be real smart, Try harder!!!! :( ');
-   $row = mysql_fetch_row($res);
+   $row = mysqli_fetch_row($res);
 	//print_r($row) ;
    if ($row[1]) {
 			return $row[1];
@@ -37,13 +37,13 @@ function sqllogin(){
 
 
 
-$login = sqllogin();
-if (!$login== 0) 
+$login = sqllogin($con);
+if (!$login== 0)
 {
 	$_SESSION["username"] = $login;
 	setcookie("Auth", 1, time()+3600);  /* expire in 15 Minutes */
 	header('Location: logged-in.php');
-} 
+}
 else
 {
 ?>
@@ -53,7 +53,7 @@ else
 </center>
 </p></td></tr>
 <?PHP
-} 
+}
 ?>
 
 
