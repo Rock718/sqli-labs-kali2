@@ -21,7 +21,7 @@ function sqllogin($host,$dbuser,$dbpass, $dbname){
    // connectivity
 //mysql connections for stacked query examples.
 $con1 = mysqli_connect($host,$dbuser,$dbpass, $dbname);
-   
+
    $username = mysqli_real_escape_string($con1, $_POST["login_user"]);
    $password = $_POST["login_password"];
 
@@ -38,7 +38,7 @@ $con1 = mysqli_connect($host,$dbuser,$dbpass, $dbname);
 
    /* execute multi query */
 
-   
+
    $sql = "SELECT * FROM users WHERE username='$username' and password='$password'";
    if (@mysqli_multi_query($con1, $sql))
    {
@@ -57,19 +57,19 @@ $con1 = mysqli_connect($host,$dbuser,$dbpass, $dbname);
 	    }
 	 }
       }
-      
-      else 
+
+      else
       {
 	echo '<font size="5" color= "#FFFF00">';
 	print_r(mysqli_error($con1));
-	echo "</font>";  
+	echo "</font>";
       }
    }
-   else 
+   else
    {
 	echo '<font size="5" color= "#FFFF00">';
 	print_r(mysqli_error($con1));
-	echo "</font>";  
+	echo "</font>";
     }
 }
 
@@ -78,12 +78,12 @@ $con1 = mysqli_connect($host,$dbuser,$dbpass, $dbname);
 
 
 $login = sqllogin($host,$dbuser,$dbpass, $dbname);
-if (!$login== 0) 
+if (!$login== 0)
 {
 	$_SESSION["username"] = $login;
 	setcookie("Auth", 1, time()+3600);  /* expire in 15 Minutes */
 	header('Location: logged-in.php');
-} 
+}
 else
 {
 ?>
@@ -93,7 +93,7 @@ else
 </center>
 </p></td></tr>
 <?php
-} 
+}
 ?>
 
 
