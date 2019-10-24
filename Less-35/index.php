@@ -20,7 +20,7 @@ function check_addslashes($string)
     return $string;
 }
 
-// take the variables 
+// take the variables
 if(isset($_GET['id']))
 {
 $id=check_addslashes($_GET['id']);
@@ -31,31 +31,31 @@ $fp=fopen('result.txt','a');
 fwrite($fp,'ID:'.$id."\n");
 fclose($fp);
 
-// connectivity 
+// connectivity
 
-mysql_query("SET NAMES gbk");
+mysqli_query($con, "SET NAMES gbk");
 $sql="SELECT * FROM users WHERE id=$id LIMIT 0,1";
 $result=mysqli_query($con, $sql);
 $row = mysqli_fetch_array($result, MYSQLI_BOTH);
 
 	if($row)
 	{
-  	echo '<font color= "#00FF00">';	
+  	echo '<font color= "#00FF00">';
   	echo 'Your Login name:'. $row['username'];
   	echo "<br>";
   	echo 'Your Password:' .$row['password'];
   	echo "</font>";
   	}
-	else 
+	else
 	{
 	echo '<font color= "#FFFF00">';
 	print_r(mysqli_error($con));
-	echo "</font>";  
+	echo "</font>";
 	}
 }
 	else { echo "Please input the ID as parameter with numeric value";}
-        
-        
+
+
 
 ?>
 </font> </div></br></br></br><center>
@@ -70,7 +70,7 @@ $row = mysqli_fetch_array($result, MYSQLI_BOTH);
 echo "Hint: The Query String you input is escaped as : ".$id;
 ?>
 </center>
-</font> 
+</font>
 </body>
 </html>
 
@@ -78,4 +78,4 @@ echo "Hint: The Query String you input is escaped as : ".$id;
 
 
 
- 
+
