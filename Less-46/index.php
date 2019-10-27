@@ -36,7 +36,7 @@ if(isset($id))
 		</font>
 		</font>
 		<?php
-		while ($row = mysql_fetch_assoc($result))
+		while ($row = mysqli_fetch_assoc($result))
 			{
 			echo '<font color= "#00FF11" size="3">';		
 			echo "<tr>";
