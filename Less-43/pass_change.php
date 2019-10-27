@@ -29,15 +29,15 @@ if (isset($_POST['submit']))
 	
 	# Validating the user input........
 	$username= $_SESSION["username"];
-	$curr_pass= mysql_real_escape_string($_POST['current_password']);
-	$pass= mysql_real_escape_string($_POST['password']);
-	$re_pass= mysql_real_escape_string($_POST['re_password']);
+	$curr_pass= mysqli_real_escape_string($con, $_POST['current_password']);
+	$pass= mysql_reali_escape_string($con, $_POST['password']);
+	$re_pass= mysqli_real_escape_string($con, $_POST['re_password']);
 	
 	if($pass==$re_pass)
 	{	
 		$sql = "UPDATE users SET PASSWORD='$pass' where username='$username' and password='$curr_pass' ";
 		$res = mysqli_query($con, $sql) or die('You tried to be smart, Try harder!!!! :( ');
-		$row = mysql_affected_rows();
+		$row = mysqli_affected_rows($con);
 		echo '<font size="3" color="#FFFF00">';
 		echo '<center>';
 		if($row==1)
