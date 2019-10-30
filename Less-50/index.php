@@ -12,9 +12,9 @@
 <?php
 include("../sql-connections/sqli-connect.php");
 error_reporting(0);
-$id=$_GET['sort'];	
-if(isset($id))
-{
+if(isset($_GET['sort']))
+	{
+	$id=$_GET['sort'];
 	//logging the connection parameters to a file for analysis.
 	$fp=fopen('result.txt','a');
 	fwrite($fp,'SORT:'.$id."\n");
@@ -28,7 +28,7 @@ if(isset($id))
 		?>
 		<center>
 		<font color= "#00FF00" size="4">
-		
+
 		<table   border=1'>
 		<tr>
 			<th>&nbsp;ID&nbsp;</th>
@@ -43,7 +43,7 @@ if(isset($id))
 			{
 				while($row = mysqli_fetch_row($result))
 				{
-					echo '<font color= "#00FF11" size="3">';		
+					echo '<font color= "#00FF11" size="3">';
 					echo "<tr>";
 					echo "<td>";
 					printf("%s", $row[0]);
@@ -56,9 +56,9 @@ if(isset($id))
 					echo "</td>";
 					echo "</tr>";
 					echo "</font>";
-					
+
 				}
-				
+
 			}
 	echo "</table>";
 	}
@@ -67,22 +67,22 @@ if(isset($id))
 	{
 		echo '<font color= "#FFFF00">';
 		print_r(mysqli_error($con1));
-		echo "</font>";  
+		echo "</font>";
 	}
 }
 else
 {
 	echo "Please input parameter as SORT with numeric value<br><br><br><br>";
 	echo "<br><br><br>";
-	echo '<img src="../images/Less-50.jpg" /><br>';	
+	echo '<img src="../images/Less-50.jpg" /><br>';
 }
 ?>
-</font> 
+</font>
 </div>
 </br>
 </br>
 </br>
 
-</center> 
+</center>
 </body>
 </html>
